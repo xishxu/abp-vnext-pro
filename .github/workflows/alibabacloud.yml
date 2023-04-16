@@ -43,7 +43,7 @@ jobs:
         with:
           context: vben28
           push: true
-          tags: registry.cn-hangzhou.aliyuncs.com/testxsx/lion.abp.pro.vben28:${{ steps.vars.outputs.RELEASE_VERSION }}
+          tags: registry.cn-hangzhou.aliyuncs.com/testxsx/lion.abp.pro.vben28:666
           
       - name: Scan image in ACR
         uses: aliyun/acr-scan@v1
@@ -52,5 +52,5 @@ jobs:
           access-key-id: "${{ secrets.Ali_USERNAME }}"
           access-key-secret: "${{ secrets.Ali_PASSWORD }}"
           repository: "testxsx/lion.abp.pro.vben28"
-          tag: "${{ steps.vars.outputs.RELEASE_VERSION }}"
+          tag: "666"
 
