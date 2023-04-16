@@ -51,6 +51,6 @@ jobs:
           region-id: "cn-hangzhou"
           access-key-id: "${{ secrets.Ali_USERNAME }}"
           access-key-secret: "${{ secrets.Ali_PASSWORD }}"
-          repository: "testxsx/lion.abp.pro.vben28"
+          repository: "registry.cn-hangzhou.aliyuncs.com/testxsx/lion.abp.pro.vben28"
           tag: "666"
 
