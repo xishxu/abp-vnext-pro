@@ -1,6 +1,8 @@
 name: ali-Docker-Images
 on:
-  push
+  push:
+    tags:
+      - "*"
 
 jobs:
   vben28:
