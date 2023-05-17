@@ -1,12 +1,10 @@
-using Lion.AbpPro.BasicManagement.EntityFrameworkCore;
-using Lion.AbpPro.DataDictionaryManagement;
 using Lion.AbpPro.DataDictionaryManagement.DataDictionaries.Aggregates;
-using Lion.AbpPro.DataDictionaryManagement.EntityFrameworkCore;
-using Lion.AbpPro.NotificationManagement;
-using Lion.AbpPro.NotificationManagement.EntityFrameworkCore;
+using Lion.AbpPro.LanguageManagement.EntityFrameworkCore;
+using Lion.AbpPro.LanguageManagement.Languages.Aggregates;
+using Lion.AbpPro.LanguageManagement.LanguageTexts.Aggregates;
 using Lion.AbpPro.NotificationManagement.Notifications.Aggregates;
 
-namespace XSX.ABPVnext.EntityFrameworkCore
+namespace Lion.AbpPro.EntityFrameworkCore
 {
     /* This is your actual DbContext used on runtime.
      * It includes only your entities.
@@ -15,13 +13,14 @@ namespace XSX.ABPVnext.EntityFrameworkCore
      * just create a structure like done for AppUser.
      *
      * Don't use this DbContext for database migrations since it does not contain tables of the
-     * used modules (as explained above). See ABPVnextMigrationsDbContext for migrations.
+     * used modules (as explained above). See AbpProMigrationsDbContext for migrations.
      */
     [ConnectionStringName("Default")]
-    public class ABPVnextDbContext : AbpDbContext<ABPVnextDbContext>, IABPVnextDbContext,
+    public class AbpProDbContext : AbpDbContext<AbpProDbContext>, IAbpProDbContext,
         IBasicManagementDbContext,
         INotificationManagementDbContext,
-        IDataDictionaryManagementDbContext
+        IDataDictionaryManagementDbContext,
+        ILanguageManagementDbContext
     {
         public DbSet<IdentityUser> Users { get; set; }
         public DbSet<IdentityRole> Roles { get; set; }
@@ -42,15 +41,18 @@ namespace XSX.ABPVnext.EntityFrameworkCore
         public DbSet<BackgroundJobRecord> BackgroundJobs { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-        public DbSet<DataDictionary> DataDictionaries { get; set; }
-        public ABPVnextDbContext(DbContextOptions<ABPVnextDbContext> options)
+        public DbSet<DataDictionary> DataDictionaries { get;  set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<LanguageText> LanguageTexts { get; set; }
+        
+        public AbpProDbContext(DbContextOptions<AbpProDbContext> options)
             : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            
+
             // 如何设置表前缀
             // Abp框架表前缀 Abp得不建议修改表前缀
             // AbpCommonDbProperties.DbTablePrefix = "xxx";
@@ -61,12 +63,13 @@ namespace XSX.ABPVnext.EntityFrameworkCore
             //NotificationManagementDbProperties = "xxx"
             base.OnModelCreating(builder);
 
-            builder.ConfigureABPVnext();
+          
+            builder.ConfigureAbpPro();
 
             // 基础模块
             builder.ConfigureBasicManagement();
-            
-            //数据字典
+
+            // 数据字典
             builder.ConfigureDataDictionaryManagement();
 
             // 消息通知
